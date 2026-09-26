@@ -1,0 +1,15 @@
+--- Baseline tc Queue Statistics on Leaf 1 (l1-s1) ---
+qdisc prio 1: root refcnt 9 bands 3 priomap 1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1
+ Sent 0 bytes 0 pkt (dropped 0, overlimits 0 requeues 0) 
+ backlog 0b 0p requeues 0
+qdisc red 100: parent 10:1 limit 200000b min 20000b max 60000b ecn 
+ Sent 0 bytes 0 pkt (dropped 0, overlimits 0 requeues 0) 
+ backlog 0b 0p requeues 0
+  marked 0 early 0 pdrop 0 other 0 
+qdisc tbf 10: parent 1:1 rate 100Mbit burst 4Kb lat 1.72ms 
+ Sent 0 bytes 0 pkt (dropped 0, overlimits 0 requeues 0) 
+ backlog 0b 0p requeues 0
+qdisc red 20: parent 1:2 limit 200000b min 30000b max 80000b 
+ Sent 0 bytes 0 pkt (dropped 0, overlimits 0 requeues 0) 
+ backlog 0b 0p requeues 0
+  marked 0 early 0 pdrop 0 other 0 

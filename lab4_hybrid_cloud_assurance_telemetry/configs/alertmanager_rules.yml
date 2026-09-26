@@ -1,0 +1,20 @@
+groups:
+  - name: ai_path_assurance_alerts
+    rules:
+      - alert: AIEndpointLatencyDegradation
+        expr: probe_duration_seconds{job="blackbox_http_ai_endpoints"} > 0.350
+        for: 6s
+        labels:
+          severity: warning
+        annotations:
+          summary: "AI Inference API Latency Exceeds 350ms SLO"
+          description: "Endpoint {{ $labels.instance }} probe duration is {{ $value }}s, exceeding production SLO."
+
+      - alert: HopPacketLossDetected
+        expr: probe_success == 0
+        for: 4s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Synthetic Probe Failure on AI Path"
+          description: "Probe failed to reach {{ $labels.instance }}."

@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  r1:
+    image: frrouting/frr:v8.5.2
+    container_name: netdevops_r1
+    privileged: true
+    networks:
+      net_r1_r2:
+        ipv4_address: 192.168.12.1
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+
+  r2:
+    image: frrouting/frr:v8.5.2
+    container_name: netdevops_r2
+    privileged: true
+    networks:
+      net_r1_r2:
+        ipv4_address: 192.168.12.2
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+
+networks:
+  net_r1_r2:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.12.0/24

@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  influxdb:
+    image: influxdb:2.7.1-alpine
+    container_name: telemetry_influxdb
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=AdminPassword123!
+      - DOCKER_INFLUXDB_INIT_ORG=ai_fabric
+      - DOCKER_INFLUXDB_INIT_BUCKET=queue_telemetry
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=telemetry_secret_token_12345
+    ports:
+      - "8086:8086"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 350M
+
+  telegraf:
+    image: telegraf:1.28.0-alpine
+    container_name: telemetry_telegraf
+    volumes:
+      - ./configs/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    depends_on:
+      - influxdb
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 150M
+
+  grafana:
+    image: grafana/grafana:10.1.0
+    container_name: telemetry_grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    ports:
+      - "3001:3000"
+    depends_on:
+      - influxdb
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 250M

@@ -1,0 +1,14 @@
+qdisc prio 1: root refcnt 9 bands 3 priomap 1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1
+ Sent 2603312 bytes 2418 pkt (dropped 14584, overlimits 0 requeues 0) 
+ backlog 0b 0p requeues 0
+qdisc red 100: parent 10:1 limit 100000b min 15000b max 45000b ecn 
+ Sent 2603200 bytes 2416 pkt (dropped 14584, overlimits 15870 requeues 0) 
+ backlog 0b 0p requeues 0
+  marked 15870 early 0 pdrop 14584 other 0 
+qdisc tbf 10: parent 1:1 rate 50Mbit burst 2Kb lat 1.72ms 
+ Sent 2603200 bytes 2416 pkt (dropped 14584, overlimits 18432 requeues 0) 
+ backlog 0b 0p requeues 0
+qdisc red 20: parent 1:2 limit 200000b min 30000b max 80000b 
+ Sent 112 bytes 2 pkt (dropped 0, overlimits 0 requeues 0) 
+ backlog 0b 0p requeues 0
+  marked 0 early 0 pdrop 0 other 0 

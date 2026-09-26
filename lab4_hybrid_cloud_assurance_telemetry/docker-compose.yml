@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.47.0
+    container_name: assurance_prometheus
+    volumes:
+      - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./configs/alertmanager_rules.yml:/etc/prometheus/alertmanager_rules.yml:ro
+    ports:
+      - "9090:9090"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 350M
+
+  blackbox_exporter:
+    image: prom/blackbox-exporter:v0.24.0
+    container_name: assurance_blackbox
+    volumes:
+      - ./configs/blackbox.yml:/config/blackbox.yml:ro
+    ports:
+      - "9115:9115"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 128M
+
+  grafana:
+    image: grafana/grafana:10.1.0
+    container_name: assurance_grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    ports:
+      - "3000:3000"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
