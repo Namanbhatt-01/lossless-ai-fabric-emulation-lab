@@ -5,7 +5,7 @@
 
 set -uo pipefail
 
-LAB_DIR="/lab/lab1_lossless_fabric_queue_mechanics"
+LAB_DIR="/lab"
 LOGS_DIR="${LAB_DIR}/artifacts/logs"
 PCAP_DIR="${LAB_DIR}/artifacts/pcaps"
 
@@ -30,7 +30,6 @@ bash "${LAB_DIR}/qos/apply_qos_tc.sh" "ecn_enabled"
 echo "=============================================================================="
 echo " [STEP 4/5] Capturing PCAP at Downstream Node (spine1) & Injecting RoCEv2 Bursts"
 echo "=============================================================================="
-# Capture downstream on spine1 ingress link s1-l1 (to capture post-qdisc CE marked packets)
 rm -f "${PCAP_DIR}/rocev2_congestion_capture.pcap"
 ip netns exec spine1 tcpdump -U -i s1-l1 -s 0 -w "${PCAP_DIR}/rocev2_congestion_capture.pcap" "udp port 4791" &
 TCPDUMP_PID=$!
@@ -43,7 +42,6 @@ echo "[*] Firing 8-flow synchronized Incast Microbursts to trigger queue buffer 
 ip netns exec host1 python3 "${LAB_DIR}/traffic/incast_microburst.py" --flows 8 --burst-size 200 --rounds 10 --dst 172.16.2.20
 
 sleep 2
-# Cleanly stop tcpdump
 kill -2 "${TCPDUMP_PID}" 2>/dev/null || true
 sleep 1
 
