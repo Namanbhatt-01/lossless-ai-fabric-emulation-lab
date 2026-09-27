@@ -23,13 +23,13 @@ This repository provides a reproducible, lightweight emulation of an **AI Data C
 ```mermaid
 graph TD
     subgraph Spine_Tier [Spine Tier: BGP EVPN Route Reflectors]
-        S1[spine1<br/>AS 65000 | 10.255.0.1]
-        S2[spine2<br/>AS 65000 | 10.255.0.2]
+        S1["spine1<br/>AS 65000 | 10.255.0.1"]
+        S2["spine2<br/>AS 65000 | 10.255.0.2"]
     end
 
     subgraph Leaf_Tier [Leaf Tier: VTEPs & tc QoS Scheduling]
-        L1[leaf1<br/>AS 65011 | 10.255.0.11<br/>tc PRIO + RED/ECN + TBF]
-        L2[leaf2<br/>AS 65012 | 10.255.0.12<br/>tc PRIO + RED/ECN + TBF]
+        L1["leaf1<br/>AS 65011 | 10.255.0.11<br/>tc PRIO + RED/ECN + TBF"]
+        L2["leaf2<br/>AS 65012 | 10.255.0.12<br/>tc PRIO + RED/ECN + TBF"]
     end
 
     subgraph Host_Tier [AI Compute Nodes: RoCEv2 GPU All-Reduce]
