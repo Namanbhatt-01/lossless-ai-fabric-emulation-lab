@@ -1,17 +1,12 @@
-# OS & Environment
 .DS_Store
-Thumbs.db
-*.swp
-*.swo
-
-# Python
+.venv/
 __pycache__/
 *.pyc
-*.pyo
-.pytest_cache/
-*.egg-info/
-venv/
-.venv/
-
-# Temporary / Log files
-*.log
+*.pcap
+artifacts/pcaps/*.pcap
+lab2_netdevops_cicd_pipeline/
+lab3_siem_security_ai_workloads/
+lab4_hybrid_cloud_assurance_telemetry/
+lab5_high_frequency_telemetry_ingestion/
+lab5_zero_trust_rag_security/
+tier6_unified_ops_governance_cockpit/
